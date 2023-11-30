@@ -11,7 +11,6 @@ package org.agera.crypto.worker {
         private var completeChannel: MessageChannel;
         private var errorChannel: MessageChannel;
         private const taskQueue: Vector.<CryptoTask> = new <CryptoTask> [];
-        private var isExecutingTasks: Boolean = false;
 
         public function CryptoWorker() {
             this.initialize();
