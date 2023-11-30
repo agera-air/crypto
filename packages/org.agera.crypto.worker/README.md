@@ -1,3 +1,5 @@
-# Empty Adobe AIR application
+# Worker
 
-This is an Adobe AIR application configured with an [asconfig](https://github.com/BowlerHatLLC/vscode-as3mxml/wiki/asconfig.json) configuration file.
+Useful links:
+
+- https://obtw.wordpress.com/2013/04/03/making-bytearray-faster/
