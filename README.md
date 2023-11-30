@@ -6,29 +6,38 @@
   </a>
 </p>
 
-An ActionScript cryptography library. It supports only the cryptographic operations required by the WebSocket protocols at the present.
+An ActionScript cryptography library for AIR SDK.
 
-Supported encryptions:
+Supported encryption formats:
 
 * SHA-1 (160 bits)
-* Base64
+* Base-64
 
 ## Getting started
 
 ```as3
 import org.agera.crypto.*;
-import org.agera.crypto.events.*;
 
-const encrypt: Encrypt = new Encrypt(data, {
-    type: "sha1"
-});
-encrypt.addEventListener(CryptoEvent.COMPLETE, function(event: CryptoEvent): void {
-    // event.data
-});
-encrypt.addEventListener(CryptoEvent.ERROR, function(event: CryptoEvent): void {
-    // event.data: Error
-});
-encrypt.encrypt();
+// The encrypt() and decrypt() functions return a Promise object.
+
+encrypt("Some string", EncryptionFormat.BASE_64)
+    .then(function(data: String): void {
+        // Complete
+    })
+    .otherwise(function(error: Error): void {
+        // Error
+    });
+
+// Use the encryptBytes() and decryptBytes() functions
+// for ByteArray operations.
+
+encryptBytes(myByteArray, EncryptionFormat.BASE_64)
+    .then(function(data: ByteArray): void {
+        // Complete
+    })
+    .otherwise(function(error: Error): void {
+        // Error
+    });
 ```
 
 ## License
