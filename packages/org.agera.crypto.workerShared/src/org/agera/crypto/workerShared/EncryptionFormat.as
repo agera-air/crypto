@@ -1,6 +1,7 @@
 package org.agera.crypto.workerShared {
     /**
      * Defines constants for available encryption formats.
+     * @private
      */
     public final class EncryptionFormat {
         public static const SHA_1: String = "sha1";

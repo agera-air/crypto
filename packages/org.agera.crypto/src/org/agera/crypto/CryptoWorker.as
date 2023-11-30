@@ -27,11 +27,17 @@ package org.agera.crypto {
             return new Promise(function(resolve: Function, reject: Function): void {
                 function onCompleteMessage(event: Event): void {
                     const message: CompletionMessage = completeChannel.receive();
-                    resolve(message.data);
+                    if (message.taskId == task.id) {
+                        completeChannel.removeEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
+                        resolve(message.data);
+                    }
                 }
                 function onErrorMessage(event: Event): void {
                     const message: ErrorMessage = errorChannel.receive();
-                    resolve(new EncryptionError(message.message));
+                    if (message.taskId == task.id) {
+                        errorChannel.removeEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
+                        reject(new EncryptionError(message.message));
+                    }
                 }
 
                 completeChannel.addEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);

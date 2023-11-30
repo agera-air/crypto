@@ -58,11 +58,11 @@ package org.agera.crypto.worker {
                     default:
                         throw new Error("Non-exhaustive match");
                 }
-                completeChannel.send(result);
+                completeChannel.send(new CompletionMessage(task.id, result));
             } catch (error: FormatError) {
-                errorChannel.send(new ErrorMessage(error.message));
+                errorChannel.send(new ErrorMessage(task.id, error.message));
             } catch (error: *) {
-                errorChannel.send(new ErrorMessage(error.message));
+                errorChannel.send(new ErrorMessage(task.id, error.message));
             }
         }
 

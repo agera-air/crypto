@@ -1,6 +1,9 @@
 package org.agera.crypto.workerShared {
     import flash.net.registerClassAlias;
 
+    /**
+     * @private
+     */
     public function registerClassAliases(): void {
         // Register class aliases
         registerClassAlias("org.agera.crypto.workerShared.CryptoTask", CryptoTask);
