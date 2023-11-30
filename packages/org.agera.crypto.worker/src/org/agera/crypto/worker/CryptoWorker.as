@@ -15,13 +15,12 @@ package org.agera.crypto.worker {
 
         public function CryptoWorker() {
             this.initialize();
+            this.executeTasks();
         }
         
         private function initialize(): void {
             // Register class aliases
-            registerClassAlias("org.agera.crypto.workerShared.CryptoTask", CryptoTask);
-            registerClassAlias("org.agera.crypto.workerShared.CompletionMessage", CompletionMessage);
-            registerClassAlias("org.agera.crypto.workerShared.ErrorMessage", ErrorMessage);
+            registerClassAliases();
 
             // Get the MessageChannel objects
             this.executeTaskChannel = Worker.current.getSharedProperty("executeTaskChannel") as MessageChannel;
@@ -31,15 +30,12 @@ package org.agera.crypto.worker {
         }
 
         private function executeTasks(): void {
-            if (this.isExecutingTasks) {
-                return;
+            while (Infinity) {
+                if (this.taskQueue.length != 0) {
+                    const task: CryptoTask = this.taskQueue.shift();
+                    this.executeTask(task);
+                }
             }
-            this.isExecutingTasks = true;
-            while (this.taskQueue.length != 0) {
-                const task: CryptoTask = this.taskQueue.shift();
-                this.executeTask(task);
-            }
-            this.isExecutingTasks = false;
         }
 
         private function executeTask(task: CryptoTask): void {
@@ -53,7 +49,6 @@ package org.agera.crypto.worker {
             const task: CryptoTask = executeTaskChannel.receive() as CryptoTask;
             if (task != null) {
                 this.taskQueue.push(task);
-                this.executeTasks();
             }
         }
     }

@@ -1,4 +1,4 @@
-package org.agera.crypto.worker {
+package org.agera.crypto.workerShared {
     import flash.utils.ByteArray;
 
     public final class CryptoTask {

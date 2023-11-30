@@ -1,8 +1,9 @@
 package org.agera.crypto {
     import flash.utils.ByteArray;
     import org.agera.crypto.errors.*;
-    import org.agera.crypto.workerShared.*;
-    import org.agera.util.Promise;
+    import org.agera.crypto.workerShared.CryptoTask;
+    import org.agera.crypto.workerShared.TaskType;
+    import org.agera.util.*;
 
     /**
      * Decrypts data with the specified options.
@@ -13,5 +14,14 @@ package org.agera.crypto {
      * @return Decrypted data as a <code>Promise.&lt;ByteArray, EncryptionError&gt;</code>.
      */
     public function decryptBytes(data: ByteArray, format: String, options: Object = null): Promise {
+        assert(EncryptionFormat.isValid(format), "Unknown encryption format: '" + format + "'.");
+        var task: CryptoTask = new CryptoTask();
+        task.format = format;
+        task.input = data;
+        task.taskType = TaskType.DECRYPT;
+        return CryptoWorker.executeTask(task)
+            .then(function(data: Vector.<ByteArray>): ByteArray {
+                return data[0];
+            });
     }
 }
