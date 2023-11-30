@@ -5,6 +5,9 @@ package org.agera.crypto.worker {
     import flash.system.Worker;
     import flash.system.MessageChannel
     import org.agera.crypto.workerShared.*;
+    import org.agera.crypto.worker.formats.Format;
+    import org.agera.crypto.worker.formats.FormatError;
+    import flash.utils.ByteArray;
 
     public class CryptoWorker extends Sprite {
         private var executeTaskChannel: MessageChannel;
@@ -38,7 +41,29 @@ package org.agera.crypto.worker {
         }
 
         private function executeTask(task: CryptoTask): void {
-            toDo();
+            const format: Format = Format.from(task);
+            try {
+                var result: Vector.<ByteArray>;
+                switch (task.taskType) {
+                    // encrypt()
+                    case TaskType.ENCRYPT:
+                        result = format.encode();
+                        break;
+
+                    // decrypt()
+                    case TaskType.DECRYPT:
+                        result = format.encode();
+                        break;
+
+                    default:
+                        throw new Error("Non-exhaustive match");
+                }
+                completeChannel.send(result);
+            } catch (error: FormatError) {
+                errorChannel.send(new ErrorMessage(error.message));
+            } catch (error: *) {
+                errorChannel.send(new ErrorMessage(error.message));
+            }
         }
 
         private function handleAddTaskMessage(event: Event): void {
