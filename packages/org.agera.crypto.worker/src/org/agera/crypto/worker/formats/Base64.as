@@ -12,6 +12,7 @@ package org.agera.crypto.worker.formats {
             ApplicationDomain.currentDomain.domainMemory = task.input;
             var output: ByteArray = new ByteArray();
             toDo();
+            ApplicationDomain.currentDomain.domainMemory = null;
             return new <ByteArray>[output];
         }
 
@@ -19,6 +20,7 @@ package org.agera.crypto.worker.formats {
             ApplicationDomain.currentDomain.domainMemory = task.input;
             var output: ByteArray = new ByteArray();
             toDo();
+            ApplicationDomain.currentDomain.domainMemory = null;
             return new <ByteArray>[output];
         }
     }
