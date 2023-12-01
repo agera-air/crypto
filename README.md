@@ -6,11 +6,13 @@
   </a>
 </p>
 
-An ActionScript cryptography library for AIR SDK.
+An asynchronous ActionScript cryptography library for AIR SDK.
+
+> **Disclaimer:** The algorithm is a taken from the [by.blooddy.crypto](https://github.com/blooddy/blooddy_crypto) library, which was released in 2016. I do not own the encryption algorithms used throughout the library.
 
 Supported encryption formats:
 
-* SHA-1 (160 bits)
+* SHA-1
 * Base-64
 
 ## Getting started
@@ -39,6 +41,10 @@ encryptBytes(myByteArray, EncryptionFormat.BASE_64)
         // Error
     });
 ```
+
+## Building
+
+The library is split into three ActionScript projects configured with an `asconfig.json` configuration file from the AS&MXML extension for Visual Studio Code. Use the `asconfigc` command to build a particular project.
 
 ## License
 
