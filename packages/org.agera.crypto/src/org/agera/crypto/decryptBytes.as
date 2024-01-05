@@ -11,7 +11,7 @@ package org.agera.crypto {
      * @param data Data to be decrypted.
      * @param format One of the constants defined in <code>EncryptionFormat</code>.
      * @param options Additional options — empty at the moment.
-     * @return Decrypted data as a <code>Promise.&lt;ByteArray, EncryptionError&gt;</code>.
+     * @return Decrypted data as a <code>Promise.&lt;ByteArray&gt;</code>.
      */
     public function decryptBytes(data: ByteArray, format: String, options: Object = null): Promise {
         assert(EncryptionFormat.isValid(format), "Unknown encryption format: '" + format + "'.");
