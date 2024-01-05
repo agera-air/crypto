@@ -70,192 +70,192 @@ package org.agera.crypto.worker.formats {
             si32( li32( 80 * 4 + ( ( i >>> 5 ) << 2 ) ) | ( 0x80 << ( i % 32 ) ), 80 * 4 + ( ( i >>> 5 ) << 2 ) );
 
             si8( i >> 24, bytesLength     );
-			si8( i >> 16, bytesLength + 1 );
-			si8( i >>  8, bytesLength + 2 );
-			si8( i      , bytesLength + 3 );
+            si8( i >> 16, bytesLength + 1 );
+            si8( i >>  8, bytesLength + 2 );
+            si8( i      , bytesLength + 3 );
 
             var h0: int =  1732584193; //0x67452301;
-			var h1: int = - 271733879; //0xEFCDAB89;
-			var h2: int = -1732584194; //0x98BADCFE;
-			var h3: int =   271733878; //0x10325476;
-			var h4: int = -1009589776; //0xC3D2E1F0;
+            var h1: int = - 271733879; //0xEFCDAB89;
+            var h2: int = -1732584194; //0x98BADCFE;
+            var h3: int =   271733878; //0x10325476;
+            var h4: int = -1009589776; //0xC3D2E1F0;
 
             var a: int = 0;
-			var b: int = 0;
-			var c: int = 0;
-			var d: int = 0;
-			var e: int = 0;
-			var w: int = 0;
-			
-			var t: int = 0;
+            var b: int = 0;
+            var c: int = 0;
+            var d: int = 0;
+            var e: int = 0;
+            var w: int = 0;
+            
+            var t: int = 0;
 
             i = 80 * 4;
             do {
                 a = h0;
-				b = h1;
-				c = h2;
-				d = h3;
-				e = h4;
-				
-				t = 0;
+                b = h1;
+                c = h2;
+                d = h3;
+                e = h4;
+                
+                t = 0;
 
                 // phase( a, b, c, d, e, i, t, 16 );
-				do {
-					
-					w =	( li8( i + t     ) << 24 ) |
-						( li8( i + t + 1 ) << 16 ) |
-						( li8( i + t + 2 ) <<  8 ) |
-						  li8( i + t + 3 )         ;
+                do {
+                    
+                    w =    ( li8( i + t     ) << 24 ) |
+                        ( li8( i + t + 1 ) << 16 ) |
+                        ( li8( i + t + 2 ) <<  8 ) |
+                          li8( i + t + 3 )         ;
 
-					si32( w, t );
+                    si32( w, t );
 
-					w += 0x5A827999 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( ~b & d ) );
-					
-					e = d;
-					d = c;
-					c = ( b << 30 ) | ( b >>> 2 );
-					b = a;
-					a = w;
-					
-					t += 4;
-					
-				} while ( t < 16 * 4 );
+                    w += 0x5A827999 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( ~b & d ) );
+                    
+                    e = d;
+                    d = c;
+                    c = ( b << 30 ) | ( b >>> 2 );
+                    b = a;
+                    a = w;
+                    
+                    t += 4;
+                    
+                } while ( t < 16 * 4 );
 
                 // phase( a, b, c, d, e, i, t, 20 );
-				do {
-					
-					w = li32( t -  3 * 4 ) ^
-						li32( t -  8 * 4 ) ^
-						li32( t - 14 * 4 ) ^
-						li32( t - 16 * 4 ) ;
+                do {
+                    
+                    w = li32( t -  3 * 4 ) ^
+                        li32( t -  8 * 4 ) ^
+                        li32( t - 14 * 4 ) ^
+                        li32( t - 16 * 4 ) ;
 
-					w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
-					
-					si32( w, t );
-					
-					w += 0x5A827999 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( ~b & d ) );
-					
-					e = d;
-					d = c;
-					c = ( b << 30 ) | ( b >>> 2 );
-					b = a;
-					a = w;
-					
-					t += 4;
-					
-				} while ( t < 20 * 4 );
+                    w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
+                    
+                    si32( w, t );
+                    
+                    w += 0x5A827999 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( ~b & d ) );
+                    
+                    e = d;
+                    d = c;
+                    c = ( b << 30 ) | ( b >>> 2 );
+                    b = a;
+                    a = w;
+                    
+                    t += 4;
+                    
+                } while ( t < 20 * 4 );
 
                 // phase( a, b, c, d, e, i, t, 40 );
-				do {
-					
-					w = li32( t -  3 * 4 ) ^
-						li32( t -  8 * 4 ) ^
-						li32( t - 14 * 4 ) ^
-						li32( t - 16 * 4 ) ;
+                do {
+                    
+                    w = li32( t -  3 * 4 ) ^
+                        li32( t -  8 * 4 ) ^
+                        li32( t - 14 * 4 ) ^
+                        li32( t - 16 * 4 ) ;
 
-					w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
+                    w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
 
-					si32( w, t );
-					
-					w += 0x6ED9EBA1 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d );
-					
-					e = d;
-					d = c;
-					c = ( b << 30 ) | ( b >>> 2 );
-					b = a;
-					a = w;
-					
-					t += 4;
-					
-				} while ( t < 40 * 4 );
+                    si32( w, t );
+                    
+                    w += 0x6ED9EBA1 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d );
+                    
+                    e = d;
+                    d = c;
+                    c = ( b << 30 ) | ( b >>> 2 );
+                    b = a;
+                    a = w;
+                    
+                    t += 4;
+                    
+                } while ( t < 40 * 4 );
 
                 // phase( a, b, c, d, e, i, t, 60 );
-				do {
-					
-					w = li32( t -  3 * 4 ) ^
-						li32( t -  8 * 4 ) ^
-						li32( t - 14 * 4 ) ^
-						li32( t - 16 * 4 ) ;
+                do {
+                    
+                    w = li32( t -  3 * 4 ) ^
+                        li32( t -  8 * 4 ) ^
+                        li32( t - 14 * 4 ) ^
+                        li32( t - 16 * 4 ) ;
 
-					w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
+                    w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
 
-					si32( w, t );
-					
-					w += 0x8F1BBCDC + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( b & d ) | ( c & d ) );
-					
-					e = d;
-					d = c;
-					c = ( b << 30 ) | ( b >>> 2 );
-					b = a;
-					a = w;
-					
-					t += 4;
-					
-				} while ( t < 60 * 4 );
+                    si32( w, t );
+                    
+                    w += 0x8F1BBCDC + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( ( b & c ) | ( b & d ) | ( c & d ) );
+                    
+                    e = d;
+                    d = c;
+                    c = ( b << 30 ) | ( b >>> 2 );
+                    b = a;
+                    a = w;
+                    
+                    t += 4;
+                    
+                } while ( t < 60 * 4 );
 
                 // phase( a, b, c, d, e, i, t, 80 );
-				do {
-					
-					w = li32( t -  3 * 4 ) ^
-						li32( t -  8 * 4 ) ^
-						li32( t - 14 * 4 ) ^
-						li32( t - 16 * 4 ) ;
+                do {
+                    
+                    w = li32( t -  3 * 4 ) ^
+                        li32( t -  8 * 4 ) ^
+                        li32( t - 14 * 4 ) ^
+                        li32( t - 16 * 4 ) ;
 
-					w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
+                    w = ( w << 1 ) | ( w >>> ( 32 - 1 ) );
 
-					si32( w, t );
-					
-					w += 0xCA62C1D6 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d );
-					
-					e = d;
-					d = c;
-					c = ( b << 30 ) | ( b >>> 2 );
-					b = a;
-					a = w;
-					
-					t += 4;
-					
-				} while ( t < 80 * 4 );
+                    si32( w, t );
+                    
+                    w += 0xCA62C1D6 + e + ( ( a << 5 ) | ( a >>> 27 ) ) + ( b ^ c ^ d );
+                    
+                    e = d;
+                    d = c;
+                    c = ( b << 30 ) | ( b >>> 2 );
+                    b = a;
+                    a = w;
+                    
+                    t += 4;
+                    
+                } while ( t < 80 * 4 );
 
                 h0 += a;
-				h1 += b;
-				h2 += c;
-				h3 += d;
-				h4 += e;
-				
-				i += 16 * 4;
+                h1 += b;
+                h2 += c;
+                h3 += d;
+                h4 += e;
+                
+                i += 16 * 4;
             } while (i < bytesLength);
 
             si8( h0 >> 24,  0 );
-			si8( h0 >> 16,  1 );
-			si8( h0 >>  8,  2 );
-			si8( h0      ,  3 );
+            si8( h0 >> 16,  1 );
+            si8( h0 >>  8,  2 );
+            si8( h0      ,  3 );
 
-			si8( h1 >> 24,  4 );
-			si8( h1 >> 16,  5 );
-			si8( h1 >>  8,  6 );
-			si8( h1      ,  7 );
-			
-			si8( h2 >> 24,  8 );
-			si8( h2 >> 16,  9 );
-			si8( h2 >>  8, 10 );
-			si8( h2      , 11 );
-			
-			si8( h3 >> 24, 12 );
-			si8( h3 >> 16, 13 );
-			si8( h3 >>  8, 14 );
-			si8( h3      , 15 );
-			
-			si8( h4 >> 24, 16 );
-			si8( h4 >> 16, 17 );
-			si8( h4 >>  8, 18 );
-			si8( h4      , 19 );
+            si8( h1 >> 24,  4 );
+            si8( h1 >> 16,  5 );
+            si8( h1 >>  8,  6 );
+            si8( h1      ,  7 );
+            
+            si8( h2 >> 24,  8 );
+            si8( h2 >> 16,  9 );
+            si8( h2 >>  8, 10 );
+            si8( h2      , 11 );
+            
+            si8( h3 >> 24, 12 );
+            si8( h3 >> 16, 13 );
+            si8( h3 >>  8, 14 );
+            si8( h3      , 15 );
+            
+            si8( h4 >> 24, 16 );
+            si8( h4 >> 16, 17 );
+            si8( h4 >>  8, 18 );
+            si8( h4      , 19 );
 
             ApplicationDomain.currentDomain.domainMemory = null;
 
             memory.position = 0;
-			memory.length = 5 * 4;
-			return memory;
+            memory.length = 5 * 4;
+            return memory;
         }
 
         override public function decode(): Vector.<ByteArray> {

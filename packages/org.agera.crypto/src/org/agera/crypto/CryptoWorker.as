@@ -18,6 +18,9 @@ package org.agera.crypto {
         private static var completeChannel: MessageChannel;
         private static var errorChannel: MessageChannel;
 
+        [Embed(source = "CryptoWorker.swf", mimeType = "application/octet-stream")]
+        private static const cryptoWorkerClass: Class;
+
         /**
          * Resolves to <code>Vector.&lt;ByteArray&gt;</code>.
          */
@@ -54,7 +57,7 @@ package org.agera.crypto {
             registerClassAliases();
 
             // Create the backgrund Worker
-            backgroundWorker = WorkerDomain.current.createWorker(swfBytesHere);
+            backgroundWorker = WorkerDomain.current.createWorker(new cryptoWorkerClass());
 
             // Set up the MessageChannel for executing (sending) a task
             executeTaskChannel = Worker.current.createMessageChannel(backgroundWorker);

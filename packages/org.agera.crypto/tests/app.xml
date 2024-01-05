@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/50.0"> 
+    <id>com.qux.foo</id> 
+    <versionNumber>1.0</versionNumber> 
+    <filename>Foo</filename> 
+    <initialWindow>
+        <title>Foo</title>
+        <content>build/app.swf</content> 
+        <visible>true</visible> 
+        <width>800</width> 
+        <height>600</height> 
+    </initialWindow> 
+</application>

@@ -52,7 +52,7 @@ package org.agera.crypto.worker {
 
                     // decrypt()
                     case TaskType.DECRYPT:
-                        result = format.encode();
+                        result = format.decode();
                         break;
 
                     default:
