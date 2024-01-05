@@ -44,7 +44,18 @@ encryptBytes(myByteArray, EncryptionFormat.BASE_64)
 
 ## Building
 
-The library is split into three ActionScript projects configured with an `asconfig.json` configuration file from the AS&MXML extension for Visual Studio Code. Use the `asconfigc` command to build a particular project.
+Requirements:
+
+* `asconfigc` from [AS&MXML](https://as3mxml.com)
+* Node.js
+
+Run the following command:
+
+```sh
+build
+```
+
+The SWC artifact is located at `packages/org.agera.crypto/swc/org.agera.crypto.swc`.
 
 ## License
 

@@ -19,17 +19,25 @@ class Main {
         changeDirectory("../org.agera.crypto");
         await this.run("asconfigc");
         copyFileSync("swc/org.agera.crypto.swc", "tests/libs/org.agera.crypto.swc");
-        changeDirectory("tests");
-        await this.run("asconfigc");
+        copyFileSync("libs/org.agera.util.swc", "tests/libs/org.agera.util.swc");
+        if (process.argv[2] == "test") {
+            changeDirectory("tests");
+            await this.run("asconfigc");
+            await this.run("adl app.xml");
+        }
     }
 
     /**
      * @param {string} command
      */
     async run(command) {
-        const {stdout, stderr} = await childProcess_exec(command);
-        console.log(stdout);
-        console.log(stderr);
+        try {
+            const {stdout, stderr} = await childProcess_exec(command);
+            console.log(stdout);
+            console.log(stderr);
+        } catch (error) {
+            throw new Error(error.message);
+        }
     }
 }
 
