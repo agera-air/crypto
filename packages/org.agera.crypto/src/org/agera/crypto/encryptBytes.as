@@ -7,10 +7,18 @@ package org.agera.crypto {
 
     /**
      * Encrypts data with the specified options.
+     * 
+     * <p>
+     * The <code>options</code> parameter accepts an object with additional options:
+     * <ul>
+     *   <li><code>insertNewLines</code> — For the base-64 encoding, indicates a number of new lines to add.
+     *     Defaults to zero.</li>
+     * </ul>
+     * </p>
      *
      * @param data Data to be encrypted.
      * @param format One of the constants defined in <code>EncryptionFormat</code>.
-     * @param options Additional options — empty at the moment.
+     * @param options Additional options.
      * @return Encrypted data as a <code>Promise.&lt;ByteArray, EncryptionError&gt;</code>.
      */
     public function encryptBytes(data: ByteArray, format: String, options: Object = null): Promise {
@@ -19,6 +27,7 @@ package org.agera.crypto {
         task.format = format;
         task.input = data;
         task.taskType = TaskType.ENCRYPT;
+        task.insertNewLines = options !== null ? uint(options.insertNewLines) : 0;
         return CryptoWorker.executeTask(task)
             .then(function(data: Vector.<ByteArray>): ByteArray {
                 return data[0];

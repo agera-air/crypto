@@ -19,6 +19,8 @@ package org.agera.crypto.workerShared {
          */
         public var taskType: String;
 
+        public var insertNewLines: uint = 0;
+
         public function CryptoTask() {
             this.id = "(" + Math.random().toString() + "," + Math.random().toString() + ")";
         }
