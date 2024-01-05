@@ -29,7 +29,9 @@ package org.agera.crypto.worker.formats {
         override public function encode(): Array {
             var bytes: ByteArray = task.input;
             var newLines: uint = task.insertNewLines;
-            if ( newLines & 3 )    throw new FormatError("Range error in insertNewLines option.");
+            if (newLines & 3) {
+                throw new FormatError("Range error in insertNewLines option.");
+            }
 
             if (!bytes || bytes.length <= 0) return [new ByteArray()];
 

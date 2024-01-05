@@ -49,9 +49,9 @@ Requirements:
 * `asconfigc` from [AS&MXML](https://as3mxml.com)
 * Node.js
 
-Run the `build` script to build a SWC artifact located at `packages/org.agera.crypto/swc/org.agera.crypto.swc`.
+Run the `run/build` script to build a SWC artifact located at `packages/org.agera.crypto/swc/org.agera.crypto.swc`.
 
-For testing, run the `test` script to test the library.
+For testing, run the `run/test` script to test the library.
 
 ## License
 

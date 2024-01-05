@@ -31,16 +31,20 @@ package org.agera.crypto {
                 function onCompleteMessage(event: Event): void {
                     const message: CompletionMessage = completeChannel.receive() as CompletionMessage;
                     if (message.taskId == task.id) {
-                        completeChannel.removeEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
+                        removeEventListeners();
                         resolve(message.data);
                     }
                 }
                 function onErrorMessage(event: Event): void {
                     const message: ErrorMessage = errorChannel.receive() as ErrorMessage;
                     if (message.taskId == task.id) {
-                        errorChannel.removeEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
+                        removeEventListeners();
                         reject(new EncryptionError(message.message));
                     }
+                }
+                function removeEventListeners(): void {
+                    completeChannel.removeEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
+                    errorChannel.removeEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
                 }
 
                 completeChannel.addEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
