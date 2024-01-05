@@ -8,7 +8,7 @@
 
 An asynchronous ActionScript cryptography library for AIR SDK.
 
-> **Disclaimer:** The algorithm is a taken from the [by.blooddy.crypto](https://github.com/blooddy/blooddy_crypto) library, which was released in 2016. I do not own the encryption algorithms used throughout the library.
+> **Disclaimer:** The algorithm is taken from the [by.blooddy.crypto](https://github.com/blooddy/blooddy_crypto) library, which was released in 2016. I do not own the encryption algorithms used throughout the library.
 
 Supported encryption formats:
 

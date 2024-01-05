@@ -3,6 +3,7 @@
     "type": "lib",
     "compilerOptions": {
         "include-sources": ["src"],
+        "source-path": ["src"],
         "library-path": ["libs"],
         "output": "swc/org.agera.crypto.workerShared.swc"
     }
