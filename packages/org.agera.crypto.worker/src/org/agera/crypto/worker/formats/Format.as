@@ -21,15 +21,15 @@ package org.agera.crypto.worker.formats {
         /**
          * @throws org.agera.crypto.worker.formats.FormatError
          */
-        public function encode(): Vector.<ByteArray> {
-            return new <ByteArray> [];
+        public function encode(): Array {
+            return [];
         }
 
         /**
          * @throws org.agera.crypto.worker.formats.FormatError
          */
-        public function decode(): Vector.<ByteArray> {
-            return new <ByteArray> [];
+        public function decode(): Array {
+            return [];
         }
     }
 }

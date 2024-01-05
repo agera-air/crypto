@@ -15,7 +15,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
-        override public function encode(): Vector.<ByteArray> {
+        override public function encode(): Array {
             var memory: ByteArray = digest(task.input);
 
             memory.position = 16;
@@ -48,7 +48,7 @@ package org.agera.crypto.worker.formats {
             var output: ByteArray = new ByteArray();
             output.length = 20 * 2;
             memory.readBytes(output, 0, 20 * 2);
-            return new <ByteArray>[output];
+            return [output];
         }
 
         // Code forked on by.blooddy.crypto
@@ -258,7 +258,7 @@ package org.agera.crypto.worker.formats {
             return memory;
         }
 
-        override public function decode(): Vector.<ByteArray> {
+        override public function decode(): Array {
             throw new FormatError("SHA-1 decryption is unsupported.");
         }
     }

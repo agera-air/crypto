@@ -6,8 +6,11 @@ package org.agera.crypto.workerShared {
      */
     public final class CompletionMessage {
         public var taskId: String;
-        public var data: Vector.<ByteArray>;
-        public function CompletionMessage(taskId: String, data: Vector.<ByteArray>) {
+        /**
+         * Array of <code>ByteArray</code>s.
+         */
+        public var data: Array;
+        public function CompletionMessage(taskId: String = "", data: Array = null) {
             this.taskId = taskId;
             this.data = data;
         }

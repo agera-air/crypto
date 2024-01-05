@@ -26,12 +26,12 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
-        override public function encode(): Vector.<ByteArray> {
+        override public function encode(): Array {
             var bytes: ByteArray = task.input;
             var newLines: uint = task.insertNewLines;
             if ( newLines & 3 )    throw new FormatError("Range error in insertNewLines option.");
 
-            if (!bytes || bytes.length <= 0) return new <ByteArray> [new ByteArray()];
+            if (!bytes || bytes.length <= 0) return [new ByteArray()];
 
             var insertNewLines: Boolean = newLines != 0;
             var len: uint = Math.ceil(bytes.length / 3) << 2;
@@ -101,12 +101,12 @@ package org.agera.crypto.worker.formats {
             var output: ByteArray = new ByteArray();
             output.length = len;
             memory.readBytes(output, 0, len);
-            return new <ByteArray>[output];
+            return [output];
         }
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
-        override public function decode(): Vector.<ByteArray> {
+        override public function decode(): Array {
             var memory: ByteArray = new ByteArray();
             memory.writeBytes(DECODE_TABLE);
             memory.writeBytes(task.input, 0);
@@ -214,7 +214,7 @@ package org.agera.crypto.worker.formats {
                 memory.position = 256;
                 memory.readBytes(result, 0, j - 255);
             }
-            return new <ByteArray>[result];
+            return [result];
         }
     }
 }

@@ -18,7 +18,7 @@ package org.agera.crypto {
         private static var completeChannel: MessageChannel;
         private static var errorChannel: MessageChannel;
 
-        [Embed(source = "CryptoWorker.swf", mimeType = "application/octet-stream")]
+        [Embed(source = "../../../org.agera.crypto.worker.swf", mimeType = "application/octet-stream")]
         private static const cryptoWorkerClass: Class;
 
         /**
@@ -29,14 +29,14 @@ package org.agera.crypto {
 
             return new Promise(function(resolve: Function, reject: Function): void {
                 function onCompleteMessage(event: Event): void {
-                    const message: CompletionMessage = completeChannel.receive();
+                    const message: CompletionMessage = completeChannel.receive() as CompletionMessage;
                     if (message.taskId == task.id) {
                         completeChannel.removeEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
                         resolve(message.data);
                     }
                 }
                 function onErrorMessage(event: Event): void {
-                    const message: ErrorMessage = errorChannel.receive();
+                    const message: ErrorMessage = errorChannel.receive() as ErrorMessage;
                     if (message.taskId == task.id) {
                         errorChannel.removeEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
                         reject(new EncryptionError(message.message));
@@ -45,6 +45,7 @@ package org.agera.crypto {
 
                 completeChannel.addEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
                 errorChannel.addEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
+                executeTaskChannel.send(task);
             });
         }
 
