@@ -18,10 +18,10 @@ class Main {
         copyFileSync("build/org.agera.crypto.worker.swf", "../org.agera.crypto/src/org.agera.crypto.worker.swf");
         changeDirectory("../org.agera.crypto");
         await this.run("asconfigc");
-        copyFileSync("swc/org.agera.crypto.swc", "tests/libs/org.agera.crypto.swc");
-        copyFileSync("libs/org.agera.util.swc", "tests/libs/org.agera.util.swc");
+        copyFileSync("swc/org.agera.crypto.swc", "../../test/libs/org.agera.crypto.swc");
+        copyFileSync("libs/org.agera.util.swc", "../../test/libs/org.agera.util.swc");
         if (process.argv[2] == "test") {
-            changeDirectory("tests");
+            changeDirectory("../../test");
             await this.run("asconfigc");
             await this.run("adl app.xml");
         }
