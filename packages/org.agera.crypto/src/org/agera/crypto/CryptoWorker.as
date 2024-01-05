@@ -30,6 +30,7 @@ package org.agera.crypto {
             return new Promise(function(resolve: Function, reject: Function): void {
                 function onCompleteMessage(event: Event): void {
                     const message: CompletionMessage = completeChannel.receive() as CompletionMessage;
+                    // trace("onCompleteMessage() message =", message, "task =", task);
                     if (message.taskId == task.id) {
                         removeEventListeners();
                         resolve(message.data);
