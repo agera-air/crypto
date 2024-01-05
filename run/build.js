@@ -18,6 +18,7 @@ class Main {
         copyFileSync("build/org.agera.crypto.worker.swf", "../org.agera.crypto/src/org.agera.crypto.worker.swf");
         changeDirectory("../org.agera.crypto");
         await this.run("asconfigc");
+        copyFileSync("swc/org.agera.crypto.swc", "../../swc/org.agera.crypto.swc");
         copyFileSync("swc/org.agera.crypto.swc", "../../test/libs/org.agera.crypto.swc");
         copyFileSync("libs/org.agera.util.swc", "../../test/libs/org.agera.util.swc");
         if (process.argv[2] == "test") {
