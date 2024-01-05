@@ -29,7 +29,7 @@ package org.agera.crypto {
         task.taskType = TaskType.ENCRYPT;
         task.insertNewLines = options !== null ? uint(options.insertNewLines) : 0;
         return CryptoWorker.executeTask(task)
-            .then(function(data: Vector.<ByteArray>): ByteArray {
+            .then(function(data: Array): ByteArray {
                 return data[0];
             });
     }

@@ -27,11 +27,9 @@ class Main {
      * @param {string} command
      */
     async run(command) {
-        try {
-            const {stdout, stderr} = await childProcess_exec(command);
-            console.log(stdout);
-            console.log(stderr);
-        } catch (error) {}
+        const {stdout, stderr} = await childProcess_exec(command);
+        console.log(stdout);
+        console.log(stderr);
     }
 }
 

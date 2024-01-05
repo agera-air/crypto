@@ -43,7 +43,7 @@ package org.agera.crypto.worker {
         private function executeTask(task: CryptoTask): void {
             const format: Format = Format.from(task);
             try {
-                var result: Vector.<ByteArray>;
+                var result: Array;
                 switch (task.taskType) {
                     // encrypt()
                     case TaskType.ENCRYPT:
