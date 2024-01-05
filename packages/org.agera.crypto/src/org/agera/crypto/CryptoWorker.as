@@ -5,6 +5,7 @@ package org.agera.crypto {
     import flash.system.Worker;
     import flash.system.WorkerDomain;
     import flash.system.WorkerState;
+    import flash.utils.Dictionary;
     import org.agera.crypto.errors.*;
     import org.agera.crypto.workerShared.*;
     import org.agera.util.Promise;
@@ -17,6 +18,7 @@ package org.agera.crypto {
         private static var executeTaskChannel: MessageChannel;
         private static var completeChannel: MessageChannel;
         private static var errorChannel: MessageChannel;
+        private static const taskResolveRejectFunctions: Dictionary = new Dictionary;
 
         [Embed(source = "../../../org.agera.crypto.worker.swf", mimeType = "application/octet-stream")]
         private static const cryptoWorkerClass: Class;
@@ -28,28 +30,7 @@ package org.agera.crypto {
             initializeWorker();
 
             return new Promise(function(resolve: Function, reject: Function): void {
-                function onCompleteMessage(event: Event): void {
-                    const message: CompletionMessage = completeChannel.receive() as CompletionMessage;
-                    // trace("onCompleteMessage() message =", message, "task =", task);
-                    if (message.taskId == task.id) {
-                        removeEventListeners();
-                        resolve(message.data);
-                    }
-                }
-                function onErrorMessage(event: Event): void {
-                    const message: ErrorMessage = errorChannel.receive() as ErrorMessage;
-                    if (message.taskId == task.id) {
-                        removeEventListeners();
-                        reject(new EncryptionError(message.message));
-                    }
-                }
-                function removeEventListeners(): void {
-                    completeChannel.removeEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
-                    errorChannel.removeEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
-                }
-
-                completeChannel.addEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
-                errorChannel.addEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
+                taskResolveRejectFunctions[task.id] = [resolve, reject];
                 executeTaskChannel.send(task);
             });
         }
@@ -78,6 +59,28 @@ package org.agera.crypto {
             backgroundWorker.setSharedProperty("errorChannel", errorChannel);
 
             backgroundWorker.start();
+
+            function onCompleteMessage(event: Event): void {
+                const message: CompletionMessage = completeChannel.receive() as CompletionMessage;
+                const resolveRejectFunctions: Array = taskResolveRejectFunctions[message.taskId];
+                if (resolveRejectFunctions !== null) {
+                    delete taskResolveRejectFunctions[message.taskId];
+                    const resolve: Function = resolveRejectFunctions[0];
+                    resolve(message.data);
+                }
+            }
+            function onErrorMessage(event: Event): void {
+                const message: ErrorMessage = errorChannel.receive() as ErrorMessage;
+                const resolveRejectFunctions: Array = taskResolveRejectFunctions[message.taskId];
+                if (resolveRejectFunctions !== null) {
+                    delete taskResolveRejectFunctions[message.taskId];
+                    const reject: Function = resolveRejectFunctions[1];
+                    reject(new EncryptionError(message.message));
+                }
+            }
+
+            completeChannel.addEventListener(Event.CHANNEL_MESSAGE, onCompleteMessage);
+            errorChannel.addEventListener(Event.CHANNEL_MESSAGE, onErrorMessage);
         }
     }
 }
