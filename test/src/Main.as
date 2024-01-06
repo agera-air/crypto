@@ -5,6 +5,7 @@ package {
 
     public class Main extends Sprite {
         public function Main() {
+            // Base-64
             encrypt("Some string", EncryptionFormat.BASE_64)
                 .then(function(data: String): void {
                     assertEquals(data, "U29tZSBzdHJpbmc=");
@@ -19,8 +20,17 @@ package {
                     trace("Base-64 decryption .. OK");
                 })
                 .otherwise(function(error: Error): void {
-                    trace(error.message);
                     trace("Base-64 decryption .. ERROR");
+                });
+
+            // SHA-1
+            encrypt("Some string", EncryptionFormat.SHA_1)
+                .then(function(data: String): void {
+                    assertEquals(data, "3febe4d69db2a2d620fa73388dbd3aed38be5575");
+                    trace("SHA-1 encryption .. OK");
+                })
+                .otherwise(function(error: Error): void {
+                    trace("SHA-1 encryption .. ERROR");
                 });
         }
     }

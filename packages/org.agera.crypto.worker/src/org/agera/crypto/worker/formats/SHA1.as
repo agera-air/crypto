@@ -30,7 +30,7 @@ package org.agera.crypto.worker.formats {
                 memory.length = ApplicationDomain.MIN_DOMAIN_MEMORY_LENGTH;
             }
 
-            ApplicationDomain.currentDomain.domainMemory = task.input;
+            ApplicationDomain.currentDomain.domainMemory = memory;
 
             var k: int = 0;
             var i: int = 16;
@@ -42,7 +42,7 @@ package org.agera.crypto.worker.formats {
                 si8(li8(k & 0xF), ++j);
             } while (++i < 16 + 20);
 
-            ApplicationDomain.currentDomain.domainMemory = null;
+            resetDomainMemory();
 
             memory.position = 16 + 20;
             var output: ByteArray = new ByteArray();
@@ -251,7 +251,7 @@ package org.agera.crypto.worker.formats {
             si8( h4 >>  8, 18 );
             si8( h4      , 19 );
 
-            ApplicationDomain.currentDomain.domainMemory = null;
+            resetDomainMemory();
 
             memory.position = 0;
             memory.length = 5 * 4;

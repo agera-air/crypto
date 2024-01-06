@@ -97,7 +97,7 @@ package org.agera.crypto.worker.formats {
                 }
             }
 
-            ApplicationDomain.currentDomain.domainMemory = null;
+            resetDomainMemory();
 
             memory.position = 64;
             var output: ByteArray = new ByteArray();
@@ -109,6 +109,10 @@ package org.agera.crypto.worker.formats {
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
         override public function decode(): Array {
+            if (task.input.length === 0) {
+                return [new ByteArray()];
+            }
+
             var memory: ByteArray = new ByteArray();
             memory.writeBytes(DECODE_TABLE);
             memory.writeBytes(task.input, 0);
@@ -119,7 +123,7 @@ package org.agera.crypto.worker.formats {
                 memory.length = ApplicationDomain.MIN_DOMAIN_MEMORY_LENGTH;
             }
 
-            ApplicationDomain.currentDomain.domainMemory = task.input;
+            ApplicationDomain.currentDomain.domainMemory = memory;
 
             var i: int = 255;
             var j: int = 255;
@@ -140,7 +144,7 @@ package org.agera.crypto.worker.formats {
                         b = c = d = 0x41;
                         break;
                     } else if ( a == 0x40 ) {
-                        ApplicationDomain.currentDomain.domainMemory = null;
+                        resetDomainMemory();
                         throw new FormatError("Decryption error");
                     }
                 }
@@ -154,7 +158,7 @@ package org.agera.crypto.worker.formats {
                         c = d = 0x41;
                         break;
                     } else if ( b == 0x40 ) {
-                        ApplicationDomain.currentDomain.domainMemory = null;
+                        resetDomainMemory();
                         throw new FormatError("Decryption error");
                     }
                 }
@@ -168,7 +172,7 @@ package org.agera.crypto.worker.formats {
                         d = 0x41;
                         break;
                     } else if ( c == 0x40 ) {
-                        ApplicationDomain.currentDomain.domainMemory = null;
+                        resetDomainMemory();
                         throw new FormatError("Decryption error");
                     }
                 }
@@ -181,7 +185,7 @@ package org.agera.crypto.worker.formats {
                     if ( d == 0x41 ) {
                         break;
                     } else if ( d == 0x40 ) {
-                        ApplicationDomain.currentDomain.domainMemory = null;
+                        resetDomainMemory();
                         throw new FormatError("Decryption error");
                     }
                 }
@@ -194,8 +198,8 @@ package org.agera.crypto.worker.formats {
 
             while ( i < bytesLength ) {
                 if ( !( li8( li8( ++i ) & 0x41 ) ) ) {
-                    ApplicationDomain.currentDomain.domainMemory = null;
-                        throw new FormatError("Decryption error");
+                    resetDomainMemory();
+                    throw new FormatError("Decryption error");
                 }
             }
 
@@ -209,10 +213,10 @@ package org.agera.crypto.worker.formats {
                 }
             }
 
-            ApplicationDomain.currentDomain.domainMemory = null;
+            resetDomainMemory();
 
             var result: ByteArray = new ByteArray;
-            if ( j > 255 ) {
+            if (j > 255) {
                 memory.position = 256;
                 memory.readBytes(result, 0, j - 255);
             }

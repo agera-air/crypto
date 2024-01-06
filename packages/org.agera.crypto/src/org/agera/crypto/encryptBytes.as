@@ -26,6 +26,7 @@ package org.agera.crypto {
         var task: CryptoTask = new CryptoTask();
         task.format = format;
         task.input = data;
+        data.position = 0;
         task.taskType = TaskType.ENCRYPT;
         task.insertNewLines = options !== null ? uint(options.insertNewLines) : 0;
         return CryptoWorker.executeTask(task)
