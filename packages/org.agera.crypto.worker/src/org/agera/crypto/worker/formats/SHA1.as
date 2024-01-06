@@ -15,6 +15,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         override public function encode(): Array {
             var memory: ByteArray = digest(task.input);
 
@@ -53,6 +54,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         private function digest(bytes: ByteArray): ByteArray {
             var i: int = bytes.length << 3;
             var bytesLength: int = 80 * 4 + (((((i + 64) >>> 9) << 4) + 15) << 2);

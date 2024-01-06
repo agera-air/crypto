@@ -41,6 +41,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         public static function encode(bytes: ByteArray, H: Vector.<int>): ByteArray {
             var memory: ByteArray = digest(bytes, H);
 
@@ -77,6 +78,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         /**
          * @param H Hash constants.
          */

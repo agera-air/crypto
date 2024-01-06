@@ -26,6 +26,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         override public function encode(): Array {
             var bytes: ByteArray = task.input;
             var newLines: uint = task.insertNewLines;
@@ -108,6 +109,7 @@ package org.agera.crypto.worker.formats {
 
         // Code forked on by.blooddy.crypto
         // https://github.com/blooddy/blooddy_crypto
+        // https://github.com/blooddy/blooddy_crypto/blob/master/LICENSE.md
         override public function decode(): Array {
             if (task.input.length === 0) {
                 return [new ByteArray()];
