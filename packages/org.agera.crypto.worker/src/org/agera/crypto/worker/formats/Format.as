@@ -14,6 +14,7 @@ package org.agera.crypto.worker.formats {
             switch (task.format) {
                 case EncryptionFormat.BASE_64: return new Base64(task);
                 case EncryptionFormat.SHA_1: return new SHA1(task);
+                case EncryptionFormat.SHA_256: return new SHA256(task);
             }
             throw new Error("Non-exhaustive constant match");
         }

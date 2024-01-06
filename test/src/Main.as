@@ -32,6 +32,16 @@ package {
                 .otherwise(function(error: Error): void {
                     trace("SHA-1 encryption .. ERROR");
                 });
+
+            // SHA-256
+            encrypt("Some string", EncryptionFormat.SHA_256)
+                .then(function(data: String): void {
+                    assertEquals(data, "2beaf0548e770c4c392196e0ec8e7d6d81cc9280ac9c7f3323e4c6abc231e95a");
+                    trace("SHA-256 encryption .. OK");
+                })
+                .otherwise(function(error: Error): void {
+                    trace("SHA-256 encryption .. ERROR");
+                });
         }
     }
 }

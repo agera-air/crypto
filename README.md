@@ -13,6 +13,7 @@ An asynchronous ActionScript cryptography library for AIR SDK.
 Supported encryption formats:
 
 * SHA-1
+* SHA-256
 * Base-64
 
 ## Getting started
