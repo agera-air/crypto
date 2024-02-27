@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/50.0"> 
+    <id>agera.crypto.worker</id> 
+    <versionNumber>1.0.0</versionNumber> 
+    <filename>agera.crypto.worker</filename> 
+    <initialWindow>
+        <title>agera.crypto.workre</title>
+        <content>build/agera.crypto.worker.swf</content> 
+        <visible>false</visible> 
+        <width>800</width> 
+        <height>600</height> 
+    </initialWindow> 
+</application>

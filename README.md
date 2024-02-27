@@ -1,7 +1,7 @@
-# org.agera.crypto
+# agera.crypto
 
 <p align="center">
-  <a href="https://agera-air.github.io/api/org.agera.crypto">
+  <a href="https://agera-air.github.io/api/agera.crypto">
     <img src="https://img.shields.io/badge/ActionScript%20API%20Documentation-gray">
   </a>
 </p>
@@ -19,7 +19,7 @@ Supported encryption formats:
 ## Getting started
 
 ```as3
-import org.agera.crypto.*;
+import agera.crypto.*;
 
 // The encrypt() and decrypt() functions return a Promise object.
 
@@ -50,7 +50,7 @@ Requirements:
 * `asconfigc` from [AS&MXML](https://as3mxml.com)
 * Node.js
 
-Run the `run/build` script to build a SWC artifact located at `swc/org.agera.crypto.swc`.
+Run the `run/build` script to build a SWC artifact located at `swc/agera.crypto.swc`.
 
 For testing, run the `run/test` script to test the library.
 

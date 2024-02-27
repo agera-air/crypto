@@ -1,0 +1,10 @@
+{
+    "config": "air",
+    "type": "lib",
+    "compilerOptions": {
+        "include-sources": ["src"],
+        "source-path": ["src"],
+        "library-path": ["libs"],
+        "output": "swc/agera.crypto.swc"
+    }
+}

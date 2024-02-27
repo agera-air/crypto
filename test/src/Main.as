@@ -1,7 +1,7 @@
 package {
     import flash.display.Sprite;
-    import org.agera.crypto.*;
-    import org.agera.util.*;
+    import agera.crypto.*;
+    import agera.util.*;
 
     public class Main extends Sprite {
         public function Main() {

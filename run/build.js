@@ -9,18 +9,19 @@ class Main {
     }
 
     async initialize() {
-        changeDirectory("packages/org.agera.crypto.workerShared");
+        copyFileSync("libs/agera.util.swc", "packages/agera.crypto/libs/agera.util.swc");
+        changeDirectory("packages/agera.crypto.bridge");
         await this.run("asconfigc");
-        copyFileSync("swc/org.agera.crypto.workerShared.swc", "../org.agera.crypto/libs/org.agera.crypto.workerShared.swc");
-        copyFileSync("swc/org.agera.crypto.workerShared.swc", "../org.agera.crypto.worker/libs/org.agera.crypto.workerShared.swc");
-        changeDirectory("../org.agera.crypto.worker");
+        copyFileSync("swc/agera.crypto.bridge.swc", "../agera.crypto/libs/agera.crypto.bridge.swc");
+        copyFileSync("swc/agera.crypto.bridge.swc", "../agera.crypto.worker/libs/agera.crypto.bridge.swc");
+        changeDirectory("../agera.crypto.worker");
         await this.run("asconfigc");
-        copyFileSync("build/org.agera.crypto.worker.swf", "../org.agera.crypto/src/org.agera.crypto.worker.swf");
-        changeDirectory("../org.agera.crypto");
+        copyFileSync("build/agera.crypto.worker.swf", "../agera.crypto/src/agera.crypto.worker.swf");
+        changeDirectory("../agera.crypto");
         await this.run("asconfigc");
-        copyFileSync("swc/org.agera.crypto.swc", "../../swc/org.agera.crypto.swc");
-        copyFileSync("swc/org.agera.crypto.swc", "../../test/libs/org.agera.crypto.swc");
-        copyFileSync("libs/org.agera.util.swc", "../../test/libs/org.agera.util.swc");
+        copyFileSync("swc/agera.crypto.swc", "../../swc/agera.crypto.swc");
+        copyFileSync("swc/agera.crypto.swc", "../../test/libs/agera.crypto.swc");
+        copyFileSync("libs/agera.util.swc", "../../test/libs/agera.util.swc");
         if (process.argv[2] == "test") {
             changeDirectory("../../test");
             await this.run("asconfigc");
